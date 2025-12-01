@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('Relationship',20)->default('none');
             $table->boolean('Two-factor-authentication')->default(0);
             $table->string('status',40)->default('active');
+            $table->enum('role', ['user', 'admin', 'fanbage', 'business'])->default('user');
             $table->rememberToken();
             $table->timestamps();
 
