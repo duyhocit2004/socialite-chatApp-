@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('storys', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('content', 100)->nullable();
-            $table->enum('object',['public', 'private']);
-            $table->enum('type_story', ['text','image']);
+            $table->string('name',100);
+            $table->string('main_image', 100)->nullable();
+            $table->string('sub_image', 100)->nullable();
             $table->string('content', 255)->nullable();
-            $table->string('backgound',255)->nullable();
-            $table->foreignId('music_id')->constrained('musics')->onDelete('cascade');
+            $table->enum('type_page', ['public', 'private'])->default('public');
+            $table->boolean('is_active')->default('1');
             $table->timestamps();
-            $table->timestamp('expires_at')->nullable();
-            $table->boolean('is_active');
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('storys');
+        Schema::dropIfExists('pages');
     }
 };

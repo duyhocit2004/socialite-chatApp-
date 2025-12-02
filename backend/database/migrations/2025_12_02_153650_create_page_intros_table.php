@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emojis', function (Blueprint $table) {
+        Schema::create('page_intros', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
-            $table->enum('type_emoji', ['post_emoji', 'reactions_emoji']);
+            $table->foreignId('pages_id')->constrained('pages')->onDelete('cascade');
+            $table->string('page_format',50)->nullable();
+            $table->string('phone_number',11)->nullable();
+            $table->string('email',100)->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('emojis');
+        Schema::dropIfExists('page_intros');
     }
 };

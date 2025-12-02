@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('content', 100);
+            $table->string('name_event',50);
+            $table->dateTime('time_start');
+            $table->dateTime('time_end')->nullable();
+            $table->enum('type_event', ['online', 'offline'])->default('online');
+            $table->string('description', 255)->nullable();
             $table->enum('object', ['public', 'friend', 'friend except', 'specific friends', 'just me', 'Customize']);//Công khai-bạn bè-bạn bè ngoại trừ-bạn bè cụ thể-chỉ mình tôi-tùy chỉnh
-            $table->string('location', 100);
-            $table->foreignId('feelling')->constrained('emojis')->onDelete('cascade');
-            $table->foreignId('status_id')->constrained('post_status')->onDelete('cascade');
-            $table->enum('source_type', ['user', 'page', '']);
-            $table->bigInteger('source_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('events');
     }
 };

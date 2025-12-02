@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emojis', function (Blueprint $table) {
+        Schema::create('group_invites', function (Blueprint $table) {//Moif tham gia group
             $table->id();
-            $table->string('name',50);
-            $table->enum('type_emoji', ['post_emoji', 'reactions_emoji']);
+            $table->foreignId('invited_user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('invited_by')->constrained('users')->onDelete('cascade');
+            $table->enum('status',['refuse', 'wait', 'confirm'])->default('wait');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('emojis');
+        Schema::dropIfExists('group_invites');
     }
 };
