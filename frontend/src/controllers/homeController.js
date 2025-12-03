@@ -1,4 +1,4 @@
 
- export const xinchao = (req ,res)=>{
-    return res.send('xin chào');
+ export const home = (req ,res)=>{
+    return res.render('clients/home.ejs');
 }

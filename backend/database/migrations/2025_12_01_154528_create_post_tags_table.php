@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('post_tags', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');//Người đăng bài
-            $table->foreignId('post-id')->constrained('posts')->onDelete('cascade');
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
             $table->integer('tagged_by');//Người được gắn thẻ
             $table->timestamps();
         });

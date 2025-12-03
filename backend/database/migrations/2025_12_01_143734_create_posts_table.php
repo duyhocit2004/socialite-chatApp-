@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('content', 100);
             $table->enum('object', ['public', 'friend', 'friend except', 'specific friends', 'just me', 'Customize']);//Công khai-bạn bè-bạn bè ngoại trừ-bạn bè cụ thể-chỉ mình tôi-tùy chỉnh
             $table->string('location', 100);
-            $table->foreignId('feelling')->constrained('emojis')->oonDelete('cascade');
-            $table->foreignId('status_id')->constrained('status')->onDelete('cascade');
+            $table->foreignId('feelling')->constrained('emojis')->onDelete('cascade');
+            $table->foreignId('post_status_id')->constrained('post_status')->onDelete('cascade');
             $table->enum('source_type', ['user', 'page', '']);
             $table->bigInteger('source_id');
             $table->timestamps();

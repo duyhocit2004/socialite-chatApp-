@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('story_medias_tablle', function (Blueprint $table) {
+        Schema::create('story_medias', function (Blueprint $table) {
             $table->id();
             $table->foreignId('story_id')->constrained('storys')->onDelete('cascade');
             $table->enum('type', ['video', 'image']);

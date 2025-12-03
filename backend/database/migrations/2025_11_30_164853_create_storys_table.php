@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('storys', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('content', 100)->nullable();
             $table->enum('object',['public', 'private']);
             $table->enum('type_story', ['text','image']);
-            $table->string('content', 255)->nnullable();
+            $table->string('content', 255)->nullable();
             $table->string('backgound',255)->nullable();
             $table->foreignId('music_id')->constrained('musics')->onDelete('cascade');
             $table->timestamps();
