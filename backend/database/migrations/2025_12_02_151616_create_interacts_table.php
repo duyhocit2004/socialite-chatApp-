@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emojis', function (Blueprint $table) {
+        Schema::create('interacts', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
-            $table->enum('type_emoji', ['post_emoji', 'reactions_emoji']);
+            $table->foreignId('pages_id')->constrained('pages')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->enum('type_interract', ['like','follow','block']);
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('emojis');
+        Schema::dropIfExists('interacts');
     }
 };
