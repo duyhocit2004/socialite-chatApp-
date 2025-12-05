@@ -1,10 +1,14 @@
 const express = require('express')
 const app = express()
 
+const engine = require('ejs-mate');
+
 const RouterAdmin = require('./routes/admin/test');
 const RouterClient = require('./routes/client/home');
 
 require('dotenv').config()
+
+app.engine('ejs', engine);
 
 app.set('view engine','ejs');
 app.set('views',`${__dirname}/views/`)
