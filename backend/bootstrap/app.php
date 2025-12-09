@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\checkRoleLogin;
+use App\Http\Middleware\checkRoleLoginAdmin;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -13,9 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        \Illuminate\Http\Middleware\HandleCors::class;
+        $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
         $middleware->alias([
-            "auth:api"=>\Illuminate\Auth\Middleware\Authenticate::class,
+            "ClientAuth"=>checkRoleLogin::class,
+            "AdminAuth"=>checkRoleLoginAdmin::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
