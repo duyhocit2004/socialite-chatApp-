@@ -1,6 +1,5 @@
 <% layout('../views/auth/clients/layout.ejs') %>
     <div class="sm:flex">
-
         <div
             class="relative lg:w-[580px] md:w-96 w-full p-10 min-h-screen bg-white shadow-xl flex items-center pt-10 dark:bg-slate-900 z-10">
 
@@ -8,9 +7,9 @@
                 uk-scrollspy="target: > *; cls: uk-animation-scale-up; delay: 100 ;repeat: true">
 
                 <!-- logo image-->
-                <a href="#"> <img src="assets/images/logo.png" class="w-28 absolute top-10 left-10 dark:hidden"
+                <a href="#"> <img src="/clients/assets/images/logo.png" class="w-28 absolute top-10 left-10 dark:hidden"
                         alt=""></a>
-                <a href="#"> <img src="assets/images/logo-light.png"
+                <a href="#"> <img src="/clients/assets/images/logo-light.png"
                         class="w-28 absolute top-10 left-10 hidden dark:!block" alt=""></a>
 
                 <!-- logo icon optional -->
@@ -21,50 +20,51 @@
 
                 <!-- title -->
                 <div>
-                    <h2 class="text-2xl font-semibold mb-1.5"> Sign in to your account </h2>
-                    <p class="text-sm text-gray-700 font-normal">If you haven’t signed up yet. <a
-                            href="form-register.html" class="text-blue-700">Register here!</a></p>
+                    <h2 class="text-2xl font-semibold mb-1.5"> Đăng nhập vào tài khoản của bạn </h2>
+                    <p class="text-sm text-gray-700 font-normal">Nếu bạn chưa đăng ký. <a
+                            href="/register" class="text-blue-700">Đăng ký tại đây</a></p>
                 </div>
 
 
                 <!-- form -->
-                <form method="#" action="#" class="space-y-7 text-sm text-black font-medium dark:text-white"
+                <form method="Post" action="/PostLogin" class="space-y-7 text-sm text-black font-medium dark:text-white"
                     uk-scrollspy="target: > *; cls: uk-animation-scale-up; delay: 100 ;repeat: true">
 
                     <!-- email -->
                     <div>
-                        <label for="email" class="">Email address</label>
+                        <label for="email" class="">Email</label>
                         <div class="mt-2.5">
-                            <input id="email" name="email" type="email" autofocus="" placeholder="Email" required=""
-                                class="!w-full !rounded-lg !bg-transparent !shadow-sm !border-slate-200 dark:!border-slate-800 dark:!bg-white/5">
+                            <input id="email" name="email" type="text" autofocus="" placeholder="Email" required="" class="!w-full !rounded-lg !bg-transparent !shadow-sm !border-slate-200 dark:!border-slate-800 dark:!bg-white/5">
                         </div>
+                        <p class="text-red-500"><%= errorEmail %></p>
                     </div>
                     <!-- password -->
                     <div>
-                        <label for="email" class="">Password</label>
+                        <label for="password" class="">mật khẩu</label>
                         <div class="mt-2.5">
                             <input id="password" name="password" type="password" placeholder="***"
                                 class="!w-full !rounded-lg !bg-transparent !shadow-sm !border-slate-200 dark:!border-slate-800 dark:!bg-white/5">
                         </div>
+                        <p class="text-red-500"><%= errorPassword %></p>
                     </div>
 
                     <div class="flex items-center justify-between">
 
-                        <div class="flex items-center gap-2.5">
+                        <!-- <div class="flex items-center gap-2.5">
                             <input id="rememberme" name="rememberme" type="checkbox">
-                            <label for="rememberme" class="font-normal">Remember me</label>
-                        </div>
-                        <a href="#" class="text-blue-700">Forgot password </a>
+                            <label for="rememberme" class="font-normal">Nhớ mật khẩu</label>
+                        </div> -->
+                        <a href="#" class="text-blue-700">Quên mật khẩu </a>
                     </div>
 
                     <!-- submit button -->
                     <div>
-                        <button type="submit" class="button bg-primary text-white w-full">Sign in</button>
+                        <button type="submit" class="button bg-primary text-white w-full">Đăng nhập</button>
                     </div>
 
                     <div class="text-center flex items-center gap-6">
                         <hr class="flex-1 border-slate-200 dark:border-slate-800">
-                        Or continue with
+                        Hoặc tiếp tục với
                         <hr class="flex-1 border-slate-200 dark:border-slate-800">
                     </div>
 
@@ -94,33 +94,31 @@
 
                 <ul class="uk-slideshow-items w-full h-full">
                     <li class="w-full">
-                        <img src="assets/images/post/img-3.jpg" alt=""
+                        <img src="/clients/assets/images/post/img-3.jpg" alt=""
                             class="w-full h-full object-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
                         <div class="absolute bottom-0 w-full uk-tr ansition-slide-bottom-small z-10">
                             <div class="max-w-xl w-full mx-auto pb-32 px-5 z-30 relative"
                                 uk-scrollspy="target: > *; cls: uk-animation-scale-up; delay: 100 ;repeat: true">
-                                <img class="w-12" src="assets/images/logo-icon.html" alt="Socialite html template">
-                                <h4 class="!text-white text-2xl font-semibold mt-7" uk-slideshow-parallax="y: 600,0,0">
-                                    Connect With Friends </h4>
-                                <p class="!text-white text-lg mt-7 leading-8" uk-slideshow-parallax="y: 800,0,0;"> This
-                                    phrase is more casual and playful. It suggests that you are keeping your friends
-                                    updated on what’s happening in your life.</p>
+                                <h4 class="!text-white text-2xl font-semibold mt-7" uk-slideshow-parallax="y: 800,0,0">
+                                    Kết nối với bạn bè </h4>
+                                <p class="!text-white text-lg mt-7 leading-8" uk-slideshow-parallax="y: 800,0,0;"> Câu 
+                                    này mang tính chất thoải mái và vui tươi hơn. 
+                                    Nó ám chỉ rằng bạn đang cập nhật cho bạn bè những gì đang diễn ra trong cuộc sống của mình.</p>
                             </div>
                         </div>
                         <div class="w-full h-96 bg-gradient-to-t from-black absolute bottom-0 left-0"></div>
                     </li>
                     <li class="w-full">
-                        <img src="assets/images/post/img-2.jpg" alt=""
+                        <img src="/clients/assets/images/post/img-2.jpg" alt=""
                             class="w-full h-full object-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
                         <div class="absolute bottom-0 w-full uk-tr ansition-slide-bottom-small z-10">
                             <div class="max-w-xl w-full mx-auto pb-32 px-5 z-30 relative"
                                 uk-scrollspy="target: > *; cls: uk-animation-scale-up; delay: 100 ;repeat: true">
-                                <img class="w-12" src="assets/images/logo-icon.html" alt="Socialite html template">
                                 <h4 class="!text-white text-2xl font-semibold mt-7" uk-slideshow-parallax="y: 800,0,0">
-                                    Connect With Friends </h4>
-                                <p class="!text-white text-lg mt-7 leading-8" uk-slideshow-parallax="y: 800,0,0;"> This
-                                    phrase is more casual and playful. It suggests that you are keeping your friends
-                                    updated on what’s happening in your life.</p>
+                                    Kết nối với bạn bè </h4>
+                                <p class="!text-white text-lg mt-7 leading-8" uk-slideshow-parallax="y: 800,0,0;"> Câu 
+                                    này mang tính chất thoải mái và vui tươi hơn. 
+                                    Nó ám chỉ rằng bạn đang cập nhật cho bạn bè những gì đang diễn ra trong cuộc sống của mình.</p>
                             </div>
                         </div>
                         <div class="w-full h-96 bg-gradient-to-t from-black absolute bottom-0 left-0"></div>
@@ -141,3 +139,4 @@
         </div>
 
     </div>
+

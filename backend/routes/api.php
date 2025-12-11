@@ -4,9 +4,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\authController;
 use App\Http\Controllers\api\categoryController;
 use App\Http\Controllers\api\userController;
+use GuzzleHttp\Middleware;
 
-Route::middleware('auth:api')->group(function (){
-    Route::post('login',[authController::class,'login']);
+Route::post('login',[authController::class,'login']);
+Route::post('register',[authController::class,'register']);
+Route::post('loginAdmin',[authController::class,'loginAdmin']);
+Route::post('logout',[authController::class,'logout']);
+// Route::middleware()
+
+Route::middleware('ClientAuth')->group(function (){
+   Route::get('profile',[authController::class,'profile']);
+});
+Route::middleware('AdminAuth')->group(function (){
+   
 });
 
 
@@ -22,3 +32,6 @@ Route::get('/user/edit/{id}', [userController::class, 'edit']);
 Route::put('/user/update/{id}', [userController::class, 'update']);
 
 Route::post('/category/store',[categoryController::class, 'store']);
+Route::get('test', function () {
+    return response()->json("xin chào");
+});
