@@ -1,10 +1,15 @@
 const express = require('express')
 const app = express()
-
+const fileUpload = require('express-fileupload');
 const engine = require('ejs-mate');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload());
 
 const RouterAdmin = require('./routes/admin/test');
 const RouterClient = require('./routes/client/home');
+
 
 require('dotenv').config()
 

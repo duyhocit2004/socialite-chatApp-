@@ -1,0 +1,39 @@
+<%- layout('admins/layout.ejs') %>
+
+<div class="py-3 py-lg-4">
+    <div class="row">
+        <div class="col-lg-6">
+            <h4 class="page-title mb-0">Quản ly người dùng</h4>
+        </div>
+        <div class="col-lg-6">
+            <div class="d-none d-lg-block">
+            <ol class="breadcrumb m-0 float-end">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Lunoz</a></li>
+                <li class="breadcrumb-item active">Quản ly người dùng</li>
+            </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Thêm mới người dùng</h4>
+                <p class="sub-header"></p>
+                <form method="post" action="/admin/market/category/store">
+                    <div class="row">
+                        <div class="mb-2 col-md-12">
+                            <div class="mb-2">
+                                <label for="inputName" class="form-label">Tên danh mục</label>
+                                <input type="text" class="form-control" id="inputName" placeholder="Name" name="name">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+</div>

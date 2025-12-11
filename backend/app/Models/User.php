@@ -21,6 +21,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'titleProfile',
+        'follow',
+        'avatar',
+        'avatarSubmain',
+        'gender',
+        'Relationship',
+        'Two-factor-authentication',
+        'status',
+        'role',
     ];
 
     /**
