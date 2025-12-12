@@ -9,6 +9,8 @@ app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const middleware = require('./middleware/middle.js')
+
 const RouterAdmin = require('./routes/admin/test');
 const RouterClient = require('./routes/client/home');
 const authController = require('./controllers/api/authController.js')
@@ -39,9 +41,9 @@ app.post('/PostRegister',authController.PostRegister);
 app.post('/logout',authController.logout)
 app.get('/profile',authController.profile);
 
-app.use('/admin',RouterAdmin);
+app.use('/admin',middleware,RouterAdmin);
 
-app.use('/',RouterClient);
+app.use('/',middleware,RouterClient);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Example app listening on port ${process.env.PORT}`)

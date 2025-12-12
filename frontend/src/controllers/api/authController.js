@@ -6,9 +6,9 @@ const validator = require('validator');
 }
  const PostLogin = async (req,res)=>{
     try {
-
-        const {email ,password} = req.body;
-
+        email , password
+        const {email} = req.body;
+        
         const respon = await authService.SendPostLogin(email ,password);
         // console.log(respon);
         if(respon.data?.notification?.status !== 200 ){
@@ -127,9 +127,11 @@ const profile = async (req,res)=>{
             return res.redirect('/login')
         }
 
-        res.clearCookie("auth_token");
+       
 
-        delete res.session.user;
+        req.session.destroy(function(err) {
+             req.clearCookie("auth_token",{path : "/"});
+        })
 
         return res.redirect('/login')
     } catch (error) {
