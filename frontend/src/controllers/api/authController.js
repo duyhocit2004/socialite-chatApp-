@@ -6,11 +6,10 @@ const validator = require('validator');
 }
  const PostLogin = async (req,res)=>{
     try {
-        email , password
-        const {email} = req.body;
+        const {email,password} = req.body;
         
         const respon = await authService.SendPostLogin(email ,password);
-        // console.log(respon);
+        console.log(respon);
         if(respon.data?.notification?.status !== 200 ){
             return res.render('auth/clients/login',{errorEmail : respon,errorPassword : null})
         }
@@ -37,7 +36,7 @@ const validator = require('validator');
 
 const profile = async (req,res)=>{
     try {
-
+        
         const codetoken = req.cookies.auth_token;
         if(!codetoken) return res.redirect('/login');
 
@@ -47,6 +46,7 @@ const profile = async (req,res)=>{
 
         req.session.user = profileData;
 
+        console.log("hi");
         return res.redirect('/home');
     
     } catch (error) {

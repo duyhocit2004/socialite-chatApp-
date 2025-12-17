@@ -16,20 +16,6 @@ class AuhtService implements IAuthSerivce {
 
     public function login(Request $request){
 
-     
-
-        $validator =validator($request->all(),[
-            'email' => 'required|max:255',
-            'passowrd' => 'requied|max:120'
-        ]);
-          
-        if($validator->fails()){
-            return response()->json([
-                'error' => "lỗi". $validator->errors(),
-                'message'=>"tài khoản hoặc mật khẩu không đúng "
-            ]);
-        }
-
         return $this->authRepositories->login($request);
         
     }

@@ -1,0 +1,223 @@
+<%- layout('admins/layout.ejs') %>
+
+<style>
+        .image-upload-wrapper {
+            position: relative;
+        }
+
+        .upload-box {
+            width: 100%;
+            padding-bottom: 100%; /* Tạo ô vuông */
+            position: relative;
+            border: 2px dashed #ccc;
+            border-radius: 50% !important;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            overflow: hidden;
+        }
+
+        .upload-box:hover {
+            border-color: #0d6efd;
+            background-color: #e7f1ff;
+        }
+
+        .upload-box-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        #fileImage {
+            display: none;
+        }
+
+        .preview-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .upload-box.has-image .upload-box-content {
+            display: none;
+        }
+
+        .upload-box.has-image .preview-image {
+            display: block;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(220, 53, 69, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            line-height: 1;
+            z-index: 10;
+            transition: background-color 0.2s;
+        }
+
+        .upload-box.has-image .remove-image {
+            display: flex;
+        }
+
+        .remove-image:hover {
+            background-color: rgba(220, 53, 69, 1);
+        }
+</style>
+
+<div class="py-3 py-lg-4">
+    <div class="row">
+        <div class="col-lg-6">
+            <h4 class="page-title mb-0">Quản ly người dùng</h4>
+        </div>
+        <div class="col-lg-6">
+            <div class="d-none d-lg-block">
+            <ol class="breadcrumb m-0 float-end">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Lunoz</a></li>
+                <li class="breadcrumb-item active">Quản ly người dùng</li>
+            </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Thêm mới người dùng</h4>
+                <p class="sub-header"></p>
+                <form method="POST" action="/admin/user-management/update" enctype="multipart/form-data">
+                    <input type="text" name="id" value="<%= user.id %>" hidden>
+                    <div class="row">
+                        <div class="mb-2 col-md-6">
+                            <div class="mb-2">
+                                <label for="inputEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" value="<%= user.email %>">
+                            </div>
+                            <div class="mb-2">
+                                <label for="inputPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" value="<%= user.password %>">
+                            </div>
+                            <div class="mb-2">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="inputGender" class="form-label">Trạng thái tài khoản</label>
+                                        <select id="inputGender" class="form-select" name="status">
+                                            <option <%- user.status == "activate" ? "selected" : "" %> value="activate">Activate</option>
+                                            <option <%- user.status == "freeze" ? "selected" : "" %> value="freeze">Freeze</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputGender" class="form-label">Chức vụ</label>
+                                        <select id="inputGender" class="form-select" name="role">
+                                            <option <%- user.role == "user" ? "selected" : "" %> value="user">User</option>
+                                            <option <%- user.role == "admin" ? "selected" : "" %> value="admin">Admin</option>
+                                            <option <%- user.role == "fanbage" ? "selected" : "" %> value="fanbage">Fanbage</option>
+                                            <option <%- user.role == "business" ? "selected" : "" %> value="business">Business</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-6">
+                            <div class="row">
+                                <div class="mb-2 col-md-4">
+                                    <label for="fileImage" class="form-label">Avartar</label>
+                                    <div class="image-upload-wrapper">
+                                        <div class="upload-box" id="uploadBox" onclick="document.getElementById('fileImage').click()">
+                                            <div class="upload-box-content">
+                                                <div class="upload-icon">📷</div>
+                                                <div>Click để chọn ảnh</div>
+                                            </div>
+                                            <img id="previewImage" class="preview-image"  src="<%= user.avatar %>" alt="Preview">
+                                            <button class="remove-image" id="removeBtn" onclick="event.stopPropagation(); removeImage()">×</button>
+                                        </div>
+                                        <input id="fileImage" type="file" accept="image/*" name="avatar">
+                                        <input type="text" name="avatarOld" value="<%= user.avatar %>" hidden>
+                                    </div>
+                                </div>
+                                <div class="mb-2 col-md-8">
+                                    <div class="mb-2">
+                                        <label for="inputName" class="form-label">Tên người dùng</label>
+                                        <input type="text" class="form-control" id="inputName" placeholder="Name" name="name" value="<%= user.name %>">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="inputTitleProfile" class="form-label">Mô tả</label>
+                                        <input type="text" class="form-control" id="inputTitleProfile" placeholder="Title profile" name="titleProfile" value="<%= user.titleProfile %>">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="inputGender" class="form-label">Giới tính</label>
+                                        <select id="inputGender" class="form-select" name="gender">
+                                            <option <%- user.gender == "man" ? "selected" : "" %> value="man">Nam</option>
+                                            <option <%- user.gender == "woman" ? "selected" : "" %> value="woman">Nữ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+</div>
+
+
+<script>
+        const fileInput = document.getElementById('fileImage');
+        const uploadBox = document.getElementById('uploadBox');
+        const previewImage = document.getElementById('previewImage');
+
+        if (previewImage.src && previewImage.src !== window.location.href) {
+        uploadBox.classList.add('has-image');
+        }
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    previewImage.src = event.target.result;
+                    uploadBox.classList.add('has-image');
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function removeImage() {
+            fileInput.value = '';
+            previewImage.src = '';
+            uploadBox.classList.remove('has-image');
+        }
+</script>

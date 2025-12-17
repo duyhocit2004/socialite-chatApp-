@@ -15,8 +15,8 @@ class userSeeder extends Seeder
     public function run(): void
     {
         $table = [
-            ['Duy',"hoangduyoffline@gmail.com","hoangduy2004","1","ssss",'woman','độc thân',"active",'admin'],
-            ['Duy1',"hoangduy200456@gmail.com","hoangduy200456","2","ssss",'man','độc thân',"active",'user'],
+            ['Duy',"hoangduyoffline@gmail.com",bcrypt("hoangduy2004"),"1","ssss",'woman','độc thân',"active",'admin'],
+            ['Duy1',"hoangduy200456@gmail.com",bcrypt("hoangduy200456"),"2","ssss",'man','độc thân',"active",'user'],
         ];
 
         foreach ($table as $user){
@@ -24,8 +24,10 @@ class userSeeder extends Seeder
                 'name' => $user[0],
                 'email' => $user[1],
                 'password' => $user[2],
+                'titleProfile' => "##",
                 'follow' => $user[3],
                 'avatar' => $user[4],
+                'avatarSubmain' => "##",
                 'gender' => $user[5],
                 'Relationship' => $user[6],
                 'status' => $user[7],

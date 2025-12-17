@@ -13,7 +13,7 @@ class AuthRepositories {
             $data = $request->only('email','password');
   
             $user = User::where('email',$data['email'])->first();
-            if(!$user || Hash::check($data['password'],$user->password)){
+            if(!$user || !Hash::check($data['password'],$user->password)){
                 return response()->json([
                     'message' => "đăng nhập không thành công",
                     'status'=>404,
@@ -21,9 +21,9 @@ class AuthRepositories {
                 ]);
             }
 
-            if(PersonalAccessToken::where('tokenable_id' ,$user->id)){
-                $user->tokens()->where('tokenable_id',$user->id)->delete();
-            }
+          
+            $user->tokens()->delete();
+
             
             $token = $user->createToken('token')->plainTextToken;
             
@@ -81,6 +81,16 @@ class AuthRepositories {
     }
     public function register(Request $request){
       try {
+
+        $email = User::where('email',$request->email)->value('email');
+
+        if($email){
+            return response()->json([
+            'status' => false,
+            'message' => 'email đã tồn tại',
+        ], 200);
+        }
+
         $user = User::create([
             'email' => $request->email,
             'phone' => $request->phone,
