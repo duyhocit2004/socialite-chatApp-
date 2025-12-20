@@ -1,0 +1,70 @@
+<%- layout('admins/layout.ejs') %>
+<div class="py-3 py-lg-4">
+    <div class="row">
+        <div class="col-lg-6">
+            <h4 class="page-title mb-0">Quản lý bài đăng</h4>
+        </div>
+        <div class="col-lg-6">
+            <div class="d-none d-lg-block">
+            <ol class="breadcrumb m-0 float-end">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Lunoz</a></li>
+                <li class="breadcrumb-item active">Quản lý bài đăng</li>
+            </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex" style="justify-content: space-between;align-items: center;">
+                    <h4 class="header-title">Danh sách bài đang</h4>
+                </div>
+                <p class="sub-header">
+                    <!-- content -->
+                </p>
+
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên người dùng</th>
+                                <th>Email</th>
+                                <th>Vai trò</th>
+                                <th>Trạng thái</th>
+                                <th style="width: 15%;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTable">
+                            <% if(users) {%>
+                            <% users.forEach(function(item, index) { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>  
+                                    <td><%= item.name %></td>
+                                    <td><%= item.email %></td>
+                                    <td><span class="<%= item.role === 'admin' ? 'badge bg-danger' : 'badge bg-primary' %>"><%= item.role %></span></td>
+                                    <td><%= item.status %></td>
+                                    <td>
+                                        <a href="/admin/user-management/edit/<%= item.id %>"><button class="btn btn-sm btn-info">Sửa</button></a>
+                                        <form class="m-0 p-0" method="post" action="/admin/user-management/delete">
+                                            <input type="text" name="id" value="<%= item.id%>" hidden>
+                                            <button class="btn btn-sm btn-danger">Xóa</button>
+                                        </form>
+                                        <button class="btn btn-sm btn-warning">Xem</button>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                            <% }else { %>
+                                <tr>
+                                    <td colspan="6" class="text-center"><p>No data...</p></td>
+                                </tr>
+                            <% }%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- end card -->
+    </div> <!-- end col -->
+</div>
